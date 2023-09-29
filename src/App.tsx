@@ -41,8 +41,8 @@ const FinalCard = styled(Card)`
     left: 50%;
     transform: translate(-50%, 0);
     z-index: ${Layers.Priority};
-    margin-top: 10px
-`
+    margin-top: 10px;
+`;
 
 const App = () => {
     // Grab the API key from session storage if it exists
@@ -105,7 +105,7 @@ const App = () => {
                     description={`This is the position 'Agent B' will argue for. This should be the opposite stance to "${agentAPosition}".`}
                 />
             )}
-            {(step === Steps.Debate || step === Steps.Conclusion) ? (
+            {step === Steps.Debate || step === Steps.Conclusion ? (
                 <Conversation
                     turn={turn}
                     setTurn={setTurn}

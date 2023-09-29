@@ -13,6 +13,6 @@ export enum Layers {
 	Foreground = 2,
 	Priority = 3,
 }
-export const RESPONSE_INTERVAL_MS = 1000;
-export const TESTING_MODE = true;
+export const RESPONSE_INTERVAL_MS = 8000;
+export const TESTING_MODE = false;
 export const RESPONSES_ALLOWED = 10;

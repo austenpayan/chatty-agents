@@ -23,19 +23,19 @@ const Title = styled.h1`
 
 const Description = styled.p`
     font-size: 12px;
-	opacity: 0.6;
+    opacity: 0.6;
     font-weight: normal;
     font-style: italic;
     margin: 0;
 `;
 
 const ErrorMessage = styled.span`
-	font-size: 12px;
-	font-weight: normal;
-	margin: 0;
-	color: #ff4757;
-	margin-left: 5px;
-`
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0;
+    color: #ff4757;
+    margin-left: 5px;
+`;
 
 const Form = ({
     title,
@@ -46,22 +46,25 @@ const Form = ({
     inputLabel,
 }: Props) => {
     const [value, setValue] = useState("");
-	const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-		if (errorMessage) {
-			setErrorMessage(null);
-		}
-        setValue(e.target.value);
-    }, [errorMessage]);
+    const handleChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            if (errorMessage) {
+                setErrorMessage(null);
+            }
+            setValue(e.target.value);
+        },
+        [errorMessage]
+    );
 
     const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
+        e.preventDefault();
 
-		if (!value) {
-			setErrorMessage('Please enter a value');
-			return;
-		}
+        if (!value) {
+            setErrorMessage("Please enter a value");
+            return;
+        }
 
         onSave(value);
     };
@@ -71,7 +74,12 @@ const Form = ({
             <form onSubmit={handleSubmit}>
                 <Title>{title}</Title>
                 {description && <Description>{description}</Description>}
-                <Label htmlFor={inputName}>{inputLabel}{errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}</Label>
+                <Label htmlFor={inputName}>
+                    {inputLabel}
+                    {errorMessage && (
+                        <ErrorMessage>{errorMessage}</ErrorMessage>
+                    )}
+                </Label>
                 <Input onChange={handleChange} name={inputName} autoFocus />
                 <Button text="Save" type="submit" buttonType="success" />
             </form>
@@ -91,9 +99,9 @@ export default styled(Form)`
         display: block;
     }
 
-	${Description} {
-		margin-top: 5px;
-	}
+    ${Description} {
+        margin-top: 5px;
+    }
 
     ${Input} {
         margin-top: 6px;

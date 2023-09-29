@@ -9,23 +9,31 @@ const Input = ({
 }: {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     className?: string;
-	autoFocus?: boolean;
+    autoFocus?: boolean;
 } & React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
 >) => {
-	const inputRef = useRef<HTMLInputElement | null>(null);
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
-	useEffect(() => {
-		if (autoFocus) {
-			if (inputRef.current) {
-				inputRef.current.focus();
-			  }
-		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+    useEffect(() => {
+        if (autoFocus) {
+            if (inputRef.current) {
+                inputRef.current.focus();
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    return <input {...props} ref={inputRef} className={className} onChange={onChange} autoComplete="off" />;
+    return (
+        <input
+            {...props}
+            ref={inputRef}
+            className={className}
+            onChange={onChange}
+            autoComplete="off"
+        />
+    );
 };
 
 export default styled(Input)`
