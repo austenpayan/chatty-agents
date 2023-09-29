@@ -24,7 +24,11 @@ const makeRequest = async (
     const data = await response.json();
 
     if (data.choices.length) {
-        return Promise.resolve(data.choices[0].message.content);
+		let content = data.choices[0].message?.content ?? '';
+		// Sometimes, OpenAI sends the messages with quotes. Lets remove those.
+		content = content.replace(/^"|"$/g, '');
+
+        return Promise.resolve(content);
     }
 
     return Promise.reject("There was a problem creating this response");
