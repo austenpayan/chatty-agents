@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Steps } from "../constants";
 
-const useUiSteps = (apiKey: string | undefined, agentAPosition: string | undefined, agentBPosition: string | undefined): Steps => {
+const useUiSteps = (apiKey: string | undefined, agentAPosition: string | undefined, agentBPosition: string | undefined): [Steps, (step: Steps) => void] => {
 	const [step, setStep] = useState<Steps>(Steps.Intake);
 
     // update steps based on available information
     useEffect(() => {
 		let currentStep = Steps.Intake;
-
+		if (step === Steps.Conclusion) return;
 		if (apiKey) {
 			console.debug('API key is', apiKey);
 			currentStep = Steps.PositionOne;
@@ -23,7 +23,7 @@ const useUiSteps = (apiKey: string | undefined, agentAPosition: string | undefin
 		}
     }, [step, apiKey, agentAPosition, agentBPosition]);
 
-	return step;
+	return [step, setStep];
 }
 
 export default useUiSteps;

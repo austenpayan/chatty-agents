@@ -8,6 +8,7 @@ import Conversation from "./conversation";
 import Silhouette from "./components/silhouette";
 import styled, { createGlobalStyle } from "styled-components";
 import { Layers } from "./constants";
+import Card from "./components/card";
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -34,7 +35,17 @@ const RightForm = styled(CenteredForm)`
     right: 5%;
 `;
 
+const FinalCard = styled(Card)`
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: ${Layers.Priority};
+    margin-top: 10px
+`
+
 const App = () => {
+    // Grab the API key from session storage if it exists
     const [apiKey, setApiKey] = useState<string | undefined>(() => {
         const key = sessionStorage.getItem(SESSION_STORAGE_API_KEY);
 
@@ -44,10 +55,9 @@ const App = () => {
     const [agentAPosition, setAgentAPosition] = useState("");
     const [agentBPosition, setAgentBPosition] = useState("");
     const [turn, setTurn] = useState<"a" | "b">("a");
-    const step = useUiSteps(apiKey, agentAPosition, agentBPosition);
+    const [step, setStep] = useUiSteps(apiKey, agentAPosition, agentBPosition);
 
-    const handlekeySubmission = useCallback((value: string) => {
-        // TODO validate
+    const handleKeySubmission = useCallback((value: string) => {
         setApiKey(value);
         // set in session storage
         sessionStorage.setItem(SESSION_STORAGE_API_KEY, value);
@@ -61,6 +71,10 @@ const App = () => {
         setAgentBPosition(value);
     }, []);
 
+    const handleFinish = useCallback(() => {
+        setStep(Steps.Conclusion);
+    }, [setStep]);
+
     return (
         <>
             <GlobalStyle />
@@ -68,7 +82,7 @@ const App = () => {
                 <CenteredForm
                     title="Welcome to Chatty Agents!"
                     description="You will pit two AI agents against each other in a spirited debate. Let's get started by entering your OpenAI API key"
-                    onSave={handlekeySubmission}
+                    onSave={handleKeySubmission}
                     inputName="api-key"
                     inputLabel="Key"
                 />
@@ -91,14 +105,20 @@ const App = () => {
                     description={`This is the position 'Agent B' will argue for. This should be the opposite stance to "${agentAPosition}".`}
                 />
             )}
-            {step === Steps.Debate && (
+            {(step === Steps.Debate || step === Steps.Conclusion) ? (
                 <Conversation
                     turn={turn}
                     setTurn={setTurn}
                     apiKey={apiKey ?? ""}
                     agentAPosition={agentAPosition}
                     agentBPosition={agentBPosition}
+                    onFinish={handleFinish}
                 />
+            ) : null}
+            {step === Steps.Conclusion && (
+                <FinalCard>
+                    <p>We're out of time, that's a wrap!</p>
+                </FinalCard>
             )}
             <Silhouette
                 $anchor="left"

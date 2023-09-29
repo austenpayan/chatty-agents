@@ -12,6 +12,8 @@ export const DefaultButton = styled.button`
 	border-radius: 6px;
 	border: none;
 	font-weight: 500;
+	background-color: #a4b0be;
+	color: #2f3542;
 `;
 
 const SuccessButton = styled(DefaultButton)`
@@ -20,8 +22,10 @@ const SuccessButton = styled(DefaultButton)`
 `
 
 const Button = ({ text, onClick, className, buttonType, ...props }: Props & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => {
+	const Component = buttonType === 'success' ? SuccessButton : DefaultButton;
+
 	return (
-		<SuccessButton {...props} onClick={onClick} className={className}>{text}</SuccessButton>
+		<Component {...props} onClick={onClick} className={className}>{text}</Component>
 	)
 };
 

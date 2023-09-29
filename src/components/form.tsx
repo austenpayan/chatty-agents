@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import Button, { DefaultButton } from "./button";
 import Card from "./card";
@@ -29,6 +29,14 @@ const Description = styled.p`
     margin: 0;
 `;
 
+const ErrorMessage = styled.span`
+	font-size: 12px;
+	font-weight: normal;
+	margin: 0;
+	color: #ff4757;
+	margin-left: 5px;
+`
+
 const Form = ({
     title,
     description,
@@ -38,14 +46,22 @@ const Form = ({
     inputLabel,
 }: Props) => {
     const [value, setValue] = useState("");
-    // TODO use form validation?
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+		if (errorMessage) {
+			setErrorMessage(null);
+		}
         setValue(e.target.value);
-    };
+    }, [errorMessage]);
 
     const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
+
+		if (!value) {
+			setErrorMessage('Please enter a value');
+			return;
+		}
 
         onSave(value);
     };
@@ -54,10 +70,10 @@ const Form = ({
         <Card className={className}>
             <form onSubmit={handleSubmit}>
                 <Title>{title}</Title>
-                {description ? <Description>{description}</Description> : null}
-                <Label htmlFor={inputName}>{inputLabel}</Label>
-                <Input onChange={handleChange} name={inputName} />
-                <Button text="Save" type="submit" />
+                {description && <Description>{description}</Description>}
+                <Label htmlFor={inputName}>{inputLabel}{errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}</Label>
+                <Input onChange={handleChange} name={inputName} autoFocus />
+                <Button text="Save" type="submit" buttonType="success" />
             </form>
         </Card>
     );
