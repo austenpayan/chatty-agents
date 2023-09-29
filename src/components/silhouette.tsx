@@ -17,7 +17,7 @@ const Silhouette = ({ className, text }: { className?: string, text?: string }) 
 	);
 };
 
-export default styled(Silhouette)<{ $anchor?: 'left' | 'right' }>`
+export default styled(Silhouette)<{ $anchor?: 'left' | 'right', $faded?: boolean }>`
 	color: white;
 	position: absolute;
 	bottom: -100px;
@@ -25,6 +25,8 @@ export default styled(Silhouette)<{ $anchor?: 'left' | 'right' }>`
 	left: ${props => props.$anchor === 'left' ? '0' : 'auto'};
 	right: ${props => props.$anchor === 'right' ? '0' : 'auto'};
 	z-index: ${Layers.Background};
+	opacity: ${props => props.$faded ? '0.25' : '1'};
+	filter: blur(${props => props.$faded ? '4px' : '0'});
 
 	p {
 		position: absolute;

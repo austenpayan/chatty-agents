@@ -24,13 +24,13 @@ const CenteredForm = styled(Form)`
 `
 
 const LeftForm = styled(CenteredForm)`
-    left: 0%;
+    left: 5%;
     transform: translate(50%, -50%);
 `
 
 const RightForm = styled(CenteredForm)`
     left: auto;
-    right: 0;
+    right: 5%;
 `
 
 const App = () => {
@@ -63,19 +63,19 @@ const App = () => {
         <>
             <GlobalStyle />
             {step === Steps.Intake && (
-                <CenteredForm description="Enter your OpenAI API key" onSave={handlekeySubmission} />
+                <CenteredForm title="Enter your OpenAI API key" onSave={handlekeySubmission} inputName="api-key" inputLabel="Key" />
             )}
             {step === Steps.PositionOne && (
-                <LeftForm description="Enter Agent A's position" onSave={handleAgentASubmit} />
+                <LeftForm title="Enter Agent A's position" onSave={handleAgentASubmit} inputName="agent-a-position" inputLabel="Position" description="This is the position 'Agent A' will argue for. Write a short & concise declarative sentence." />
             )}
             {step === Steps.PositionTwo && (
-                <RightForm description="Enter Agent B's position" onSave={handleAgentBSubmit} />
+                <RightForm title="Enter Agent B's position" onSave={handleAgentBSubmit} inputName="agent-b-position" inputLabel="Position" />
             )}
             {step === Steps.Debate && (
                 <Conversation apiKey={apiKey ?? ''} agentAPosition={agentAPosition} agentBPosition={agentBPosition} />
             )}
-            <Silhouette $anchor="left" text={agentAPosition} />
-			<Silhouette $anchor="right" text={agentBPosition} />
+            <Silhouette $anchor="left" text={agentAPosition} $faded={step === Steps.PositionTwo} />
+			<Silhouette $anchor="right" text={agentBPosition} $faded={step === Steps.PositionOne}/>
         </>
     );
 }

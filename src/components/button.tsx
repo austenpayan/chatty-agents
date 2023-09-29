@@ -2,16 +2,27 @@ import styled from "styled-components";
 
 interface Props {
 	text: string;
-	onClick: () => void;
+	onClick?: () => void;
 	className?: string;
+	buttonType?: 'default' | 'success';
 }
 
-const Button = ({ text, onClick, className }: Props) => {
+export const DefaultButton = styled.button`
+	padding: 8px 15px;
+	border-radius: 6px;
+	border: none;
+	font-weight: 500;
+`;
+
+const SuccessButton = styled(DefaultButton)`
+	background-color: #19ca7a;
+	color: white;
+`
+
+const Button = ({ text, onClick, className, buttonType, ...props }: Props & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => {
 	return (
-		<button onClick={onClick} className={className}>{text}</button>
+		<SuccessButton {...props} onClick={onClick} className={className}>{text}</SuccessButton>
 	)
 };
 
-export default styled(Button)`
-	padding: 5px 8px;
-`;
+export default Button;
