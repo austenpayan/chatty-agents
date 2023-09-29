@@ -11,8 +11,7 @@ const Column = styled.div`
 	position: relative;
 	overflow: scroll;
 	z-index: ${Layers.Main};
-	padding: 0 50px;
-	padding-bottom: 50vh;
+	padding: 100px 50px 50vh 50px;
 
 	${Bubble} {
 		&:only-child {

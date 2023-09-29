@@ -1,15 +1,16 @@
 import styled from "styled-components";
 
-const BACKGROUND_COLOR = '#87CEFA'
+const BACKGROUND_COLOR = '#1e90ff';
 
 export const Bubble = styled.div`
 	background-color: ${BACKGROUND_COLOR};
 	border: 1px solid ${BACKGROUND_COLOR};
-	border-radius: 4px;
+	border-radius: 12px;
 	padding: 10px 15px;
 	position: relative;
 	width: 100%;
 	font-size: 14px;
+	color: white;
 `;
 
 const FadedBubble = styled(Bubble)`
@@ -21,7 +22,7 @@ const LeftBubble = styled(Bubble)`
 		content: "";
 		position: absolute;
 		bottom: -10px;
-		left: 15px;
+		left: 20px;
 		width: 0;
 		height: 0;
 		border-left: 10px solid transparent;
@@ -36,7 +37,7 @@ const RightBubble = styled(Bubble)`
 		content: "";
 		position: absolute;
 		bottom: -10px;
-		left: calc(100% - 15px);
+		left: calc(100% - 20px);
 		width: 0;
 		height: 0;
 		border-left: 10px solid transparent;

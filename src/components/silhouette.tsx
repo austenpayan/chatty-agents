@@ -1,7 +1,22 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { Layers } from '../constants';
 
+const pulse = keyframes`
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+`;
+
+const pulseAnimation = css`
+	animation: ${pulse} 2s linear infinite;
+`
 
 const Silhouette = ({ className, text }: { className?: string, text?: string }) => {
 	return (
@@ -17,7 +32,7 @@ const Silhouette = ({ className, text }: { className?: string, text?: string }) 
 	);
 };
 
-export default styled(Silhouette)<{ $anchor?: 'left' | 'right', $faded?: boolean }>`
+export default styled(Silhouette)<{ $anchor?: 'left' | 'right', $faded?: boolean, $pulsing?: boolean; }>`
 	color: white;
 	position: absolute;
 	bottom: -100px;
@@ -27,6 +42,7 @@ export default styled(Silhouette)<{ $anchor?: 'left' | 'right', $faded?: boolean
 	z-index: ${Layers.Background};
 	opacity: ${props => props.$faded ? '0.25' : '1'};
 	filter: blur(${props => props.$faded ? '4px' : '0'});
+	${props => props.$pulsing ? pulseAnimation : undefined}
 
 	p {
 		position: absolute;

@@ -10,6 +10,8 @@ interface Props {
 	apiKey: string;
 	agentAPosition: string;
 	agentBPosition: string;
+	turn: 'a' | 'b';
+	setTurn: (turn: 'a' | 'b') => void;
 }
 
 const Container = styled.div`
@@ -28,11 +30,11 @@ const TestingButton = styled(Button)`
 	left: 0;
 `
 
-const Conversation = ({ apiKey, agentAPosition, agentBPosition }: Props) => {
+const Conversation = ({ apiKey, agentAPosition, agentBPosition, turn, setTurn }: Props) => {
 	const [agentAResponses, setAgentAResponses] = useState<string[]>([]);
 	const [agentBResponses, setAgentBResponses] = useState<string[]>([]);
 	const locked = useRef(false);
-	const [turn, setTurn] = useState<'a' | 'b'>('a');
+
 	const [paused, setPaused] = useState(false);
 
 	useEffect(() => {
@@ -73,7 +75,7 @@ const Conversation = ({ apiKey, agentAPosition, agentBPosition }: Props) => {
 				}, RESPONSE_INTERVAL_MS);
 			});
 		}
-	}, [apiKey, agentAPosition, agentAResponses, turn, agentBPosition, agentBResponses, paused]);
+	}, [apiKey, agentAPosition, agentAResponses, turn, agentBPosition, agentBResponses, paused, setTurn]);
 
 	const togglePaused = useCallback(() => {
 		if (paused) {
