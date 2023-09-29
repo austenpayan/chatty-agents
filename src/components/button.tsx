@@ -1,12 +1,17 @@
+import styled from "styled-components";
+
 interface Props {
 	text: string;
-	onClick: () => void
+	onClick: () => void;
+	className?: string;
 }
 
-const Button = ({ text, onClick }: Props) => {
+const Button = ({ text, onClick, className }: Props) => {
 	return (
-		<button onClick={onClick}>{text}</button>
+		<button onClick={onClick} className={className}>{text}</button>
 	)
 };
 
-export default Button;
+export default styled(Button)`
+	padding: 5px 8px;
+`;

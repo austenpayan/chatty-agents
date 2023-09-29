@@ -1,8 +1,9 @@
+import { TESTING_MODE } from "./constants";
 import { getRandomResponse } from "./test-data";
 
 const makeRequest = async (apiKey: string, prompt: string, testingMode?: boolean) => {
 
-	if (testingMode) return Promise.resolve(getRandomResponse());
+	if (TESTING_MODE) return Promise.resolve(getRandomResponse());
 
 	const response = await fetch('https://api.openai.com/v1/chat/completions', {
 		headers: {

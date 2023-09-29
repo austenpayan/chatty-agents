@@ -1,18 +1,29 @@
 import React, { useEffect, useRef } from 'react';
 import styled from "styled-components";
-import SpeechBubble from "./speech-bubble";
+import SpeechBubble, { Bubble } from "./speech-bubble";
 import { Layers } from '../helpers/constants';
 
 
 const Column = styled.div`
-	flex: 0 1 30%;
+	flex: 0 1 50%;
 	display: flex;
 	flex-direction: column;
 	position: relative;
 	overflow: scroll;
 	z-index: ${Layers.Main};
 	padding: 0 50px;
-	max-height: 50vh;
+	padding-bottom: 50vh;
+
+	${Bubble} {
+		&:only-child {
+			margin-top: auto;
+		}
+
+		&:not(:last-child) {
+			margin-top: auto;
+			margin-bottom: 100px;
+		}
+	}
 
 
 	&::-webkit-scrollbar {

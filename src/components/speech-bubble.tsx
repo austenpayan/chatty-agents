@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const BACKGROUND_COLOR = '#87CEFA'
 
-const Bubble = styled.div`
+export const Bubble = styled.div`
 	background-color: ${BACKGROUND_COLOR};
 	border: 1px solid ${BACKGROUND_COLOR};
 	border-radius: 4px;
@@ -10,7 +10,6 @@ const Bubble = styled.div`
 	position: relative;
 	width: 100%;
 	font-size: 14px;
-	margin-top: 100px;
 `;
 
 const FadedBubble = styled(Bubble)`
