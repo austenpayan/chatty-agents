@@ -3,7 +3,7 @@ import styled from "styled-components";
 import makePrompt from "./helpers/make-prompt";
 import makeRequest from "./helpers/make-request";
 import AnchoredColumn from "./components/anchored-column";
-import { RESPONSE_INTERVAL_MS, TESTING_MODE } from "./helpers/constants";
+import { RESPONSE_INTERVAL_MS, TESTING_MODE } from "./constants";
 import Button from "./components/button";
 
 interface Props {

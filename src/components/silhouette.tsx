@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Layers } from '../helpers/constants';
+import { Layers } from '../constants';
 
 
 const Silhouette = ({ className, text }: { className?: string, text?: string }) => {

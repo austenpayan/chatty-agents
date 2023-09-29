@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled from "styled-components";
 import SpeechBubble, { Bubble } from "./speech-bubble";
-import { Layers } from '../helpers/constants';
+import { Layers } from '../constants';
 
 
 const Column = styled.div`

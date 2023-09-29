@@ -1,4 +1,4 @@
-import { TESTING_MODE } from "./constants";
+import { TESTING_MODE } from "../constants";
 import { getRandomResponse } from "./test-data";
 
 const makeRequest = async (apiKey: string, prompt: string, testingMode?: boolean) => {

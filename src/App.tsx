@@ -7,7 +7,7 @@ import useUiSteps from './hooks/use-ui-steps';
 import Conversation from './conversation';
 import Silhouette from './components/silhouette';
 import styled, { createGlobalStyle } from 'styled-components';
-import { Layers } from './helpers/constants';
+import { Layers } from './constants';
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -63,7 +63,7 @@ const App = () => {
         <>
             <GlobalStyle />
             {step === Steps.Intake && (
-                <CenteredForm title="Enter your OpenAI API key" onSave={handlekeySubmission} inputName="api-key" inputLabel="Key" />
+                <CenteredForm title="Welcome to Chatty Agents!" description="You will pit two AI agents against each other in a spirited debate. Let's get started by entering your OpenAI API key" onSave={handlekeySubmission} inputName="api-key" inputLabel="Key" />
             )}
             {step === Steps.PositionOne && (
                 <LeftForm title="Enter Agent A's position" onSave={handleAgentASubmit} inputName="agent-a-position" inputLabel="Position" description="This is the position 'Agent A' will argue for. Write a short & concise declarative sentence." />
