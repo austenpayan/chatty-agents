@@ -1,4 +1,6 @@
 # Chatty Agents - Austen Payan
+Running at : https://stupendous-paprenjak-1a5afc.netlify.app/
+
 ## Run the app
 In the project directory, you can run:
 
