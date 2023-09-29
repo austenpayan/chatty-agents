@@ -5,6 +5,33 @@ import Form from './components/form';
 import { SESSION_STORAGE_API_KEY, Steps } from './constants';
 import useUiSteps from './hooks/use-ui-steps';
 import Conversation from './conversation';
+import Silhouette from './components/silhouette';
+import styled, { createGlobalStyle } from 'styled-components';
+import { Layers } from './helpers/constants';
+
+const GlobalStyle = createGlobalStyle`
+    body {
+        overflow: hidden;
+    }
+`
+
+const CenteredForm = styled(Form)`
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: ${Layers.Foreground};
+`
+
+const LeftForm = styled(CenteredForm)`
+    left: 0%;
+    transform: translate(50%, -50%);
+`
+
+const RightForm = styled(CenteredForm)`
+    left: auto;
+    right: 0;
+`
 
 const App = () => {
     const [apiKey, setApiKey] = useState<string | undefined>(() => {
@@ -13,8 +40,8 @@ const App = () => {
         if (key) return key;
         return undefined;
     });
-    const [agentAPosition, setAgentAPosition] = useState('New York is the best city');
-    const [agentBPosition, setAgentBPosition] = useState('LA is the best city');
+    const [agentAPosition, setAgentAPosition] = useState('');
+    const [agentBPosition, setAgentBPosition] = useState('');
     const step = useUiSteps(apiKey, agentAPosition, agentBPosition);
 
     const handlekeySubmission = useCallback((value: string) => {
@@ -33,25 +60,23 @@ const App = () => {
     }, []);
 
     return (
-        <div>
-            <div>
-                {`Api key is: ${apiKey}`}
-                {`Agent A position is: ${agentAPosition}`}
-                {`Agent B position is: ${agentBPosition}`}
-            </div>
+        <>
+            <GlobalStyle />
             {step === Steps.Intake && (
-                <Form description="Enter your OpenAI API key" onSave={handlekeySubmission} />
+                <CenteredForm description="Enter your OpenAI API key" onSave={handlekeySubmission} />
             )}
             {step === Steps.PositionOne && (
-                <Form description="Enter Agent A's position" onSave={handleAgentASubmit} />
+                <LeftForm description="Enter Agent A's position" onSave={handleAgentASubmit} />
             )}
             {step === Steps.PositionTwo && (
-                <Form description="Enter Agent B's position" onSave={handleAgentBSubmit} />
+                <RightForm description="Enter Agent B's position" onSave={handleAgentBSubmit} />
             )}
             {step === Steps.Debate && (
-                <Conversation apiKey={apiKey} agentAPosition={agentAPosition} agentBPosition={agentBPosition} />
+                <Conversation apiKey={apiKey ?? ''} agentAPosition={agentAPosition} agentBPosition={agentBPosition} />
             )}
-        </div>
+            <Silhouette $anchor="left" text={agentAPosition} />
+			<Silhouette $anchor="right" text={agentBPosition} />
+        </>
     );
 }
 

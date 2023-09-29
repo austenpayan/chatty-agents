@@ -3,13 +3,15 @@ import React, { useState } from 'react';
 import Button from "./button";
 import Card from "./card";
 import Input from "./input";
+import styled from 'styled-components';
 
 interface Props {
 	onSave: (value: string) => void
-	description: string
+	description: string;
+	className?: string;
 }
 
-const Form = ({ description, onSave }: Props) => {
+const Form = ({ description, onSave, className }: Props) => {
 	const [value, setValue] = useState('');
 	// TODO use form validation?
 
@@ -22,7 +24,7 @@ const Form = ({ description, onSave }: Props) => {
 	}
 
 	return (
-		<Card>
+		<Card className={className}>
 			{description}
       		<Input onChange={handleChange} />
       		<Button text="Save" onClick={handleSubmit} />
